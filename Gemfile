@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "jekyll", "~> 4.4"
-gem "jekyll-remote-theme"
+gem "jekyll-remote-theme", github: "benbalter/jekyll-remote-theme", ref: "v0.4.3"
 gem "jekyll-seo-tag"
 gem "jekyll-sitemap"
 gem "jekyll-feed"
