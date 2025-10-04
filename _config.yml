@@ -45,6 +45,8 @@ liquid:
 # Build settings
 permalink: /:categories/:title/
 markdown: kramdown
+kramdown:
+  hard_wrap: true
 feed:
   path: atom.xml
 
@@ -77,6 +79,12 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-remote-theme
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:title/
 
 # Front Matter Defaults
 defaults:

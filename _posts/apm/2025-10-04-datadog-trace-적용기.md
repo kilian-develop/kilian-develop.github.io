@@ -22,6 +22,7 @@ tags:
 --- 
 # Trace Context
 Datadog에서 Trace를 남길 때, Trace Context라는 것을 기준으로 Trace를 전파하도록 되어있다.
+
 관련 문서 : [데이터독 공식문서](https://docs.datadoghq.com/ko/tracing/trace_collection/trace_context_propagation/?tab=java) 
 
 Trace Context에는 아래와 같은 값들이 존재한다.
