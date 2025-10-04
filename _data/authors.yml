@@ -1,0 +1,7 @@
+Kilian:
+  name: Kilian
+  picture: /assets/images/profile_image.jpg
+  links:
+    - title: GitHub
+      url: https://github.com/kilian-develop
+      icon: fab fa-github-square
