@@ -32,7 +32,7 @@ mathjax:
 google_fonts:
   - name: "Pretendard"
     weights: "400,500,600,700"
-google_analytics: # Google Analytics id, e.g. "UA-NNNNNNNN-N"
+google_analytics: G-WJ9M22KP3S
 disqus:
   shortname: # Disqus shortname, e.g. "my_disqus_shortname"
 twitter:
