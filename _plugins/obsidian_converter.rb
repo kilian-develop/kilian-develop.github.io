@@ -2,6 +2,8 @@ module Jekyll
   module ObsidianConverter
     # Convert Obsidian wikilinks to Jekyll markdown
     def convert_obsidian_syntax(content)
+      return content unless content.is_a?(String)
+
       # Convert Obsidian callouts first (before other conversions)
       content = convert_callouts(content)
 
@@ -76,3 +78,31 @@ Jekyll::Hooks.register [:posts, :pages], :pre_render do |item|
     item.content = converter.convert_obsidian_syntax(item.content)
   end
 end
+
+# Liquid filter to clean Obsidian syntax from excerpts
+module Jekyll
+  module ObsidianFilter
+    def clean_obsidian_excerpt(input)
+      return input unless input.is_a?(String)
+
+      # Remove image wikilinks completely from excerpts
+      content = input.gsub(/!\[\[([^\]]+\.(?:png|jpg|jpeg|gif|svg|webp))\]\]/i, '')
+
+      # Remove highlights but keep the text: ==text== -> text
+      content = content.gsub(/==([^=]+)==/, '\1')
+
+      # Remove regular wikilinks: [[link|text]] -> text or [[link]] -> link
+      content = content.gsub(/\[\[([^\]|]+)\|?([^\]]*)\]\]/) do |match|
+        $2.empty? ? $1 : $2
+      end
+
+      # Remove callouts
+      content = content.gsub(/^>\s*\[!(\w+)\]\s*.*$/, '')
+      content = content.gsub(/^>\s?(.*)$/, '\1')
+
+      content
+    end
+  end
+end
+
+Liquid::Template.register_filter(Jekyll::ObsidianFilter)

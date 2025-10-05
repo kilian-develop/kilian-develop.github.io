@@ -25,7 +25,7 @@
   {% unless page.show_excerpts == false %}
     <div class="entry-excerpt p-summary">
       {% if entry.excerpt %}
-        {{ entry.excerpt | markdownify }}
+        {{ entry.excerpt | clean_obsidian_excerpt | markdownify }}
       {% endif %}
     </div>
   {% endunless %}
