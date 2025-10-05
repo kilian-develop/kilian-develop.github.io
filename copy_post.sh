@@ -18,16 +18,22 @@ if [[ ! "$FILENAME" =~ \.md$ ]]; then
 fi
 
 # iCloud Obsidian 경로
-SOURCE_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/kilian/Atlas/Notes/개발노트/$FILENAME"
+OBSIDIAN_BASE="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/kilian"
+
+# 파일 검색
+SOURCE_PATH=$(find "$OBSIDIAN_BASE" -name "$FILENAME" -type f | head -n 1)
 
 # 대상 디렉토리
 TARGET_DIR="_posts/$CATEGORY"
 
 # 파일 존재 확인
-if [ ! -f "$SOURCE_PATH" ]; then
-    echo "Error: 파일을 찾을 수 없습니다: $SOURCE_PATH"
+if [ -z "$SOURCE_PATH" ]; then
+    echo "Error: 파일을 찾을 수 없습니다: $FILENAME"
+    echo "검색 경로: $OBSIDIAN_BASE"
     exit 1
 fi
+
+echo "파일 발견: $SOURCE_PATH"
 
 # 카테고리 디렉토리 생성 (없으면)
 if [ ! -d "$TARGET_DIR" ]; then
