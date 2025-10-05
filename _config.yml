@@ -20,7 +20,7 @@ locale: en-US
 title: "Kilian's Blog"
 description: "Backend Service Developer; Java, Spring ... etc"
 baseurl: # the subpath of your site, e.g. "/blog"
-url: https://kilian-develop.github.io/
+url: https://kilian-develop.github.io
 logo: /assets/images/logo.jpg # path of site logo, e.g. "/images/logo.png"
 date_format: "%B %-d, %Y"
 read_time: # reading time estimates, e.g. true
