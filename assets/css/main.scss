@@ -147,16 +147,16 @@ mark {
 .entries-list .entry {
   padding-bottom: 2rem !important;
   margin-bottom: 2.5rem !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 .entries-list .entry:last-child {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 // Dark mode support for entry separator
 @media (prefers-color-scheme: dark) {
   .entries-list .entry {
-    border-bottom-color: rgba(255, 255, 255, 0.15);
+    border-bottom-color: rgba(255, 255, 255, 0.25) !important;
   }
 }
