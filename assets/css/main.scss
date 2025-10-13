@@ -142,3 +142,21 @@ mark {
   padding: 0.1em 0.2em;
   border-radius: 2px;
 }
+
+// Improve home page entry separation
+.entries-list .entry {
+  padding-bottom: 2rem !important;
+  margin-bottom: 2.5rem !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.entries-list .entry:last-child {
+  border-bottom: none;
+}
+
+// Dark mode support for entry separator
+@media (prefers-color-scheme: dark) {
+  .entries-list .entry {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+  }
+}
