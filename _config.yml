@@ -75,7 +75,6 @@ tag_archive_path: "/tags/#"
 
 plugins:
   - jekyll-seo-tag
-  - jekyll-sitemap
   - jekyll-feed
   - jekyll-paginate
   - jekyll-remote-theme
