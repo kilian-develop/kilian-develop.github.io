@@ -8,22 +8,22 @@ layout: null
   {% for post in site.posts %}
   <url>
     <loc>{{ site.url }}{{ post.url }}</loc>
-    {% if post.lastmod == null %}
-    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
-    {% else %}
+    {% if post.lastmod %}
     <lastmod>{{ post.lastmod | date_to_xmlschema }}</lastmod>
+    {% else %}
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
     {% endif %}
 
-    {% if post.sitemap.changefreq == null %}
-    <changefreq>weekly</changefreq>
-    {% else %}
+    {% if post.sitemap.changefreq %}
     <changefreq>{{ post.sitemap.changefreq }}</changefreq>
+    {% else %}
+    <changefreq>weekly</changefreq>
     {% endif %}
 
-    {% if post.sitemap.priority == null %}
-    <priority>0.8</priority>
-    {% else %}
+    {% if post.sitemap.priority %}
     <priority>{{ post.sitemap.priority }}</priority>
+    {% else %}
+    <priority>0.8</priority>
     {% endif %}
   </url>
   {% endfor %}
