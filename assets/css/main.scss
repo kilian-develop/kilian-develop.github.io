@@ -46,32 +46,32 @@ strong, b {
 
 .e-content h1 {
   border-left-color: #d73a4a !important;
-  font-size: 1.6em !important;
+  font-size: 1.15em !important;
 }
 
 .e-content h2 {
   border-left-color: #f9826c !important;
-  font-size: 1.4em !important;
+  font-size: 1.1em !important;
 }
 
 .e-content h3 {
   border-left-color: #ffd33d !important;
-  font-size: 1.25em !important;
+  font-size: 1.05em !important;
 }
 
 .e-content h4 {
   border-left-color: #a2e09b !important;
-  font-size: 1.15em !important;
+  font-size: 1.02em !important;
 }
 
 .e-content h5 {
   border-left-color: #58a6ff !important;
-  font-size: 1.05em !important;
+  font-size: 1em !important;
 }
 
 .e-content h6 {
   border-left-color: #bc8cff !important;
-  font-size: 1em !important;
+  font-size: 0.95em !important;
 }
 
 // Obsidian-style callouts
@@ -144,19 +144,40 @@ mark {
 }
 
 // Improve home page entry separation
-.entries-list .entry {
-  padding-bottom: 2rem !important;
-  margin-bottom: 2.5rem !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
-}
+.entries-list {
+  .entry {
+    padding-bottom: 2rem !important;
+    margin-bottom: 2.5rem !important;
+    border-bottom: 2px solid #ddd !important;
 
-.entries-list .entry:last-child {
-  border-bottom: none !important;
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
 }
 
 // Dark mode support for entry separator
 @media (prefers-color-scheme: dark) {
   .entries-list .entry {
-    border-bottom-color: rgba(255, 255, 255, 0.25) !important;
+    border-bottom-color: #555 !important;
+  }
+}
+
+// Reduce page title size and center align
+.page-title {
+  font-size: 28px !important;
+  text-align: center !important;
+  margin-bottom: 1.5em !important;
+}
+
+@media screen and (min-width: 320px) {
+  .page-title {
+    font-size: calc(28px + 8 * (100vw - 320px) / 960) !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .page-title {
+    font-size: 36px !important;
   }
 }
