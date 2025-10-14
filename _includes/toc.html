@@ -1,0 +1,20 @@
+<aside class="toc-wrapper">
+  <nav class="toc">
+    <h2 class="toc-title">목차</h2>
+    <ul class="toc-list">
+      {% assign headings = content | markdownify | split: '<h' %}
+      {% for heading in headings offset: 1 %}
+        {% assign level = heading | slice: 0, 1 | plus: 0 %}
+        {% if level >= 1 and level <= 4 %}
+          {% assign parts = heading | split: '>' %}
+          {% assign title_part = parts[1] | split: '</h' | first %}
+          {% assign id = title_part | strip_html | slugify %}
+          {% assign text = title_part | strip_html %}
+          <li class="toc-item toc-level-{{ level }}">
+            <a href="#{{ id }}">{{ text }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+</aside>
