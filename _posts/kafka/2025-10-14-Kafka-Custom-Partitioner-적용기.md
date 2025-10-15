@@ -441,6 +441,8 @@ public final class PriorityPartitionCalculator {
    - Optional과 Stream API를 활용한 안전한 코드 작성
 
 ## 결과
+![[전체흐름.png]]
+
 하나의 토픽에서 여러 프로필의 이벤트를 처리하면서도:
 - 각 검색엔진의 부하를 적절히 제어
 - 우선순위가 높은 요청을 빠르게 처리
