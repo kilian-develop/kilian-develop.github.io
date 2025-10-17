@@ -53,11 +53,19 @@ module Jekyll
             i += 1
           end
 
-          # Build the callout HTML
-          body_html = callout_body.join("\n").strip
+          # Build the callout - convert markdown in content before wrapping
+          body_content = callout_body.join("\n").strip
+
+          # Convert markdown links directly: [text](url) -> <a href="url">text</a>
+          body_html = body_content.gsub(/\[([^\]]+)\]\(([^)]+)\)/, '<a href="\2">\1</a>')
+          # Convert bold: **text** -> <strong>text</strong>
+          body_html = body_html.gsub(/\*\*([^\*]+)\*\*/, '<strong>\1</strong>')
+
           result << "<div class=\"callout callout-#{type}\">"
-          result << "  <div class=\"callout-title\">#{title}</div>"
-          result << "  <div class=\"callout-content\">#{body_html}</div>"
+          result << "<div class=\"callout-title\">#{title}</div>"
+          result << "<div class=\"callout-content\">"
+          result << body_html
+          result << "</div>"
           result << "</div>"
           result << ""
         else

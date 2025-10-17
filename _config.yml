@@ -47,6 +47,8 @@ permalink: /:categories/:title/
 markdown: kramdown
 kramdown:
   hard_wrap: true
+  parse_block_html: false
+  parse_span_html: false
 feed:
   path: atom.xml
 
