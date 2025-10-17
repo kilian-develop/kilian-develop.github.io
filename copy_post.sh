@@ -21,7 +21,14 @@ fi
 OBSIDIAN_BASE="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/kilian"
 
 # 파일 검색
-SOURCE_PATH=$(find "$OBSIDIAN_BASE" -name "$FILENAME" -type f | head -n 1)
+SOURCE_PATH=""
+# 여러 위치에서 검색
+for search_path in "$OBSIDIAN_BASE"/* "$OBSIDIAN_BASE"/*/*  "$OBSIDIAN_BASE"/*/*/*  "$OBSIDIAN_BASE"/*/*/*/*; do
+    if [ -f "$search_path/$FILENAME" ]; then
+        SOURCE_PATH="$search_path/$FILENAME"
+        break
+    fi
+done
 
 # 대상 디렉토리
 TARGET_DIR="_posts/$CATEGORY"
