@@ -6,6 +6,7 @@ tags:
   - Kafka
 date: 2025-10-14
 excerpt: 프로필별 트래픽 제어와 우선순위 기반 처리를 위한 Kafka Custom Partitioner 구현 사례. 검색엔진의 부하 분산과 긴급 요청의 빠른 처리를 동시에 해결합니다.
+image_thumbnail: /assets/images/posts/kafka.png
 ---
 # 개요
 카피킬러 표절검사 과정 중에는 ==후보군 추출==이라는 프로세스가 존재합니다.

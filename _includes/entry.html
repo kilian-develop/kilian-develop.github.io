@@ -13,8 +13,8 @@
         <a href="{{ entry.url | relative_url }}" rel="bookmark">{{ title }}</a>
       {% endif %}
     </h3>
-    {% if entry.image.thumbnail %}
-      {% assign entry_image = entry.image.thumbnail %}
+    {% if entry.image_thumbnail or entry.image.thumbnail %}
+      {% assign entry_image = entry.image_thumbnail | default: entry.image.thumbnail %}
       {% unless entry_image contains '://' %}
         {% assign entry_image = entry_image | relative_url %}
       {% endunless %}

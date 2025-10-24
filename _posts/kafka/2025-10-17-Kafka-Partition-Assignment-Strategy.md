@@ -8,6 +8,7 @@ tags:
   - Partition Assignment
 date: 2025-10-17
 excerpt: Kafka Consumer Group의 파티션 할당 방식을 상세히 분석합니다.
+image_thumbnail: /assets/images/posts/kafka.png
 ---
 
 # 개요

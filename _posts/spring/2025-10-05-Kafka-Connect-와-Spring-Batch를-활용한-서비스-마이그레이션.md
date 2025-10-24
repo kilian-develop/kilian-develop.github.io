@@ -9,6 +9,7 @@ tags:
   - Kafka-connect
 date: 2025-10-05
 excerpt: 레거시 시스템에서 신규 전처리 시스템으로 대용량 데이터를 마이그레이션한 경험을 공유합니다. Kafka Connect로 데이터 스트림을 구축하고, Spring Batch와 RxJava를 활용한 병렬 처리로 성능을 13배 향상시켰습니다.
+image_thumbnail: /assets/images/posts/spring-batch.png
 ---
 # 개요
 카피킬러 표절검사에는 문서를 전처리하는 시스템이 도입되어 있습니다.
