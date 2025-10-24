@@ -283,3 +283,17 @@
     max-width: $main-sidebar-max-width;
   }
 }
+
+/*
+   Profile Image
+   ========================================================================== */
+
+.profile-image {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1.5em;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
