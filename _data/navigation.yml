@@ -8,6 +8,8 @@
 #   url: /posts/
 - title: Tags
   url: /tags/
+- title: Archive
+  url: /archive/
 # - title: Recipes
 #   url: /recipes/
 - title: Search

@@ -191,3 +191,48 @@
     }
   }
 }
+
+/*
+   Archive List Layout
+   ========================================================================== */
+
+.archive-month-title {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .archive-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+
+    .archive-date {
+      display: inline-block;
+      min-width: 40px;
+      margin-right: 1rem;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    a {
+      text-decoration: none;
+      flex-grow: 1;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
