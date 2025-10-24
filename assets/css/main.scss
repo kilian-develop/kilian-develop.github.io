@@ -310,3 +310,13 @@ mark {
     display: none;
   }
 }
+
+// Reduce image size on categories and tags pages
+body.layout--categories .entry-image,
+body.layout--tags .entry-image {
+  max-height: 350px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}

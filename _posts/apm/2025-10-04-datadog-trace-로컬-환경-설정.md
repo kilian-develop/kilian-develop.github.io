@@ -8,6 +8,7 @@ tags:
   - APM
 title: 데이터독 Trace 로컬 환경 설정
 excerpt: 로컬 개발 환경에서 Datadog APM을 설정하는 방법을 단계별로 설명합니다. dd-java-agent.jar 설치부터 Docker 기반 Datadog Agent 구성, 애플리케이션 환경 변수 설정까지 실제 적용 과정을 다룹니다.
+image_thumbnail: /assets/images/posts/데이터독.jpg
 ---
 
 # 데이터독 계정 생성
