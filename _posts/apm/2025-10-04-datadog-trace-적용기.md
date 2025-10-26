@@ -57,29 +57,29 @@ Batch는 DB에서만 이벤트 정보를 읽을 뿐, "이 이벤트가 어느 AP
 
 Trace Context에는 여러 값들이 있습니다:
 - `x-datadog-trace-id`
-	- **의미**: 전체 요청 흐름을 식별하는 고유한 추적 ID
-	- **용도**: 하나의 사용자 요청이 여러 마이크로서비스를 거쳐가더라도 동일한 trace-id로 연결하여 전체 흐름을 추적
-	- **형태**: 64비트 또는 128비트 정수 (보통 16진수로 표현)
+  - **의미**: 전체 요청 흐름을 식별하는 고유한 추적 ID
+  - **용도**: 하나의 사용자 요청이 여러 마이크로서비스를 거쳐가더라도 동일한 trace-id로 연결하여 전체 흐름을 추적
+  - **형태**: 64비트 또는 128비트 정수 (보통 16진수로 표현)
 -  `x-datadog-parent-id`
-	- **의미**: 현재 span의 부모 span ID
-	- **용도**: 서비스 간 호출 관계와 계층 구조를 구성하는 데 사용
-	- **형태**: 64비트 정수
+  - **의미**: 현재 span의 부모 span ID
+  - **용도**: 서비스 간 호출 관계와 계층 구조를 구성하는 데 사용
+  - **형태**: 64비트 정수
 -  `x-datadog-origin`
-	- **의미**: 추적이 시작된 원점/소스를 나타냄
-	- **용도**: 추적의 출발점이 어디인지 식별 (예: 'synthetics', 'rum', 'lambda' 등)
-	- **예시**: `synthetics`, `rum`, `lambda`, `profiling`
+  - **의미**: 추적이 시작된 원점/소스를 나타냄
+  - **용도**: 추적의 출발점이 어디인지 식별 (예: 'synthetics', 'rum', 'lambda' 등)
+  - **예시**: `synthetics`, `rum`, `lambda`, `profiling`
 -  `x-datadog-sampling-priority`
-	- **의미**: 해당 추적의 샘플링 우선순위
-	- **용도**: 추적 데이터를 얼마나 중요하게 처리할지 결정
-	- **값**:
-	    - `-1`: 자동 거부 (DROP)
-	    - `0`: 자동 유지 (AUTO_REJECT)
-	    - `1`: 자동 유지 (AUTO_KEEP)
-	    - `2`: 사용자 유지 (USER_KEEP)
+  - **의미**: 해당 추적의 샘플링 우선순위
+  - **용도**: 추적 데이터를 얼마나 중요하게 처리할지 결정
+  - **값**:
+      - `-1`: 자동 거부 (DROP)
+      - `0`: 자동 유지 (AUTO_REJECT)
+      - `1`: 자동 유지 (AUTO_KEEP)
+      - `2`: 사용자 유지 (USER_KEEP)
 -  `x-datadog-tags`
-	- **의미**: 추적과 관련된 메타데이터 태그들
-	- **용도**: 추적에 추가적인 컨텍스트 정보를 부여 (환경, 버전, 사용자 ID 등)
-	- **형태**: 키-값 쌍들이 URL 인코딩된 형태 (예: `_dd.p.key1=value1,key2=value2`)
+  - **의미**: 추적과 관련된 메타데이터 태그들
+  - **용도**: 추적에 추가적인 컨텍스트 정보를 부여 (환경, 버전, 사용자 ID 등)
+  - **형태**: 키-값 쌍들이 URL 인코딩된 형태 (예: `_dd.p.key1=value1,key2=value2`)
 
 ---
 
@@ -192,9 +192,9 @@ Trace Context를 저장할 위치:
 @Service  
 @RequiredArgsConstructor  
 public class PreprocessJobCreateService {  
-	
-	//...의존성 코드
-	 
+  
+  //...의존성 코드
+   
     @Transactional    
     public PreprocessJob create(CreatePreprocessJobCommand command) {
         TraceContext traceContext = new TraceContext(TraceUtil.extractTraceContext());  
@@ -205,8 +205,8 @@ public class PreprocessJobCreateService {
         );  
         // Aggregate Root
         PreprocessJob savedJob = preprocessJobRepository.save(preprocessJob);   
-		
-		//outbox
+    
+    //outbox
         outboxRepository.save(PreprocessJobCreatedOutbox.create(savedJob, traceContext));  
   
         return savedJob;  
