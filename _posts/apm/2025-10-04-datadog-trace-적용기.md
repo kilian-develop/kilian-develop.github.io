@@ -42,7 +42,7 @@ image_thumbnail: /assets/images/posts/데이터독.jpg
 
 Batch는 DB에서만 이벤트 정보를 읽을 뿐, "이 이벤트가 어느 API 요청에서 나온 것인가"를 알 수 없었습니다. 따라서 trace-id를 이어줄 수 없었습니다.
 
---- 
+---
 # 해결책: Trace Context를 DB에 저장하고 복원하다
 
 ## Datadog Trace Context란?
@@ -106,18 +106,18 @@ api 'com.datadoghq:dd-trace-api:1.46.0'
 
 **Trace Context 추출 - API 서버에서 사용**
 ```java
-public static Map<String, String> extractTraceContext() {  
-    Tracer tracer = getTracer();  
-    Span span = getSpan();  
-  
-    if (Objects.isNull(span)) {  
-        return Collections.emptyMap();  
-    }  
-  
-    Map<String, String> contextMap = new HashMap<>();  
-    tracer.inject(span.context(), Format.Builtin.TEXT_MAP, new TextMapAdapter(contextMap));  
-  
-    return contextMap;  
+public static Map<String, String> extractTraceContext() {
+    Tracer tracer = getTracer();
+    Span span = getSpan();
+
+    if (Objects.isNull(span)) {
+        return Collections.emptyMap();
+    }
+
+    Map<String, String> contextMap = new HashMap<>();
+    tracer.inject(span.context(), Format.Builtin.TEXT_MAP, new TextMapAdapter(contextMap));
+
+    return contextMap;
 }
 ```
 
@@ -188,29 +188,29 @@ Trace Context를 저장할 위치:
 
 ### 실제 구현 예시
 ```java
-@Slf4j  
-@Service  
-@RequiredArgsConstructor  
-public class PreprocessJobCreateService {  
-  
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class PreprocessJobCreateService {
+
   //...의존성 코드
-   
-    @Transactional    
+
+    @Transactional
     public PreprocessJob create(CreatePreprocessJobCommand command) {
-        TraceContext traceContext = new TraceContext(TraceUtil.extractTraceContext());  
-  
-        PreprocessJob preprocessJob = PreprocessJob.create(  
+        TraceContext traceContext = new TraceContext(TraceUtil.extractTraceContext());
+
+        PreprocessJob preprocessJob = PreprocessJob.create(
                 //.. 기타 필드
-                traceContext  
-        );  
+                traceContext
+        );
         // Aggregate Root
-        PreprocessJob savedJob = preprocessJobRepository.save(preprocessJob);   
-    
+        PreprocessJob savedJob = preprocessJobRepository.save(preprocessJob);
+
     //outbox
-        outboxRepository.save(PreprocessJobCreatedOutbox.create(savedJob, traceContext));  
-  
-        return savedJob;  
-    }  
+        outboxRepository.save(PreprocessJobCreatedOutbox.create(savedJob, traceContext));
+
+        return savedJob;
+    }
 ```
 ---
 
@@ -224,17 +224,17 @@ Trace Context에서 특정 값을 추출하는 로직이 많아서 **Value Objec
 
 **TraceContext.java**
 ```java
-public record TraceContext(Map<String, String> value) {  
-  
-    private static final String TRACE_ID_KEY = "x-datadog-trace-id";  
-  
-    public String getTraceId() {  
-        if (value.containsKey(TRACE_ID_KEY)) {  
-            return value.get(TRACE_ID_KEY);  
-        }  
-  
-        return "";  
-    }  
+public record TraceContext(Map<String, String> value) {
+
+    private static final String TRACE_ID_KEY = "x-datadog-trace-id";
+
+    public String getTraceId() {
+        if (value.containsKey(TRACE_ID_KEY)) {
+            return value.get(TRACE_ID_KEY);
+        }
+
+        return "";
+    }
 }
 ```
 
