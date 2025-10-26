@@ -10,7 +10,7 @@ tags:
 excerpt: 역할이 분리된 마이크로서비스에서 End to End 분산 추적을 위해 Datadog Trace Context를 추출 및 복원하는 방법을 소개합니다. RDB에 Trace Context를 저장하고 AOP를 활용한 어노테이션 기반으로 개선하여 비즈니스 로직에 집중할 수 있도록 구현했습니다.
 image_thumbnail: /assets/images/posts/데이터독.jpg
 ---
-# 분산 추적 모니터링이 끊기는 문제를 만나다
+# 분산 추적 모니터링이 끊기는 문제
 
 ## 서비스 아키텍처와 발생한 문제
 
@@ -38,12 +38,13 @@ image_thumbnail: /assets/images/posts/데이터독.jpg
 
 이 문제의 근본 원인은 간단했습니다:
 
-> **Batch 서버가 API 서버의 Trace Context를 모르고 있다.**
+{: .notice--info}
+**Batch 서버가 API 서버의 Trace Context를 모르고 있다.**
 
 Batch는 DB에서만 이벤트 정보를 읽을 뿐, "이 이벤트가 어느 API 요청에서 나온 것인가"를 알 수 없었습니다. 따라서 trace-id를 이어줄 수 없었습니다.
 
 ---
-# 해결책: Trace Context를 DB에 저장하고 복원하다
+# Trace Context를 DB에 저장하고 복원
 
 ## Datadog Trace Context란?
 
@@ -60,15 +61,15 @@ Trace Context에는 여러 값들이 있습니다:
   - **의미**: 전체 요청 흐름을 식별하는 고유한 추적 ID
   - **용도**: 하나의 사용자 요청이 여러 마이크로서비스를 거쳐가더라도 동일한 trace-id로 연결하여 전체 흐름을 추적
   - **형태**: 64비트 또는 128비트 정수 (보통 16진수로 표현)
--  `x-datadog-parent-id`
+- `x-datadog-parent-id`
   - **의미**: 현재 span의 부모 span ID
   - **용도**: 서비스 간 호출 관계와 계층 구조를 구성하는 데 사용
   - **형태**: 64비트 정수
--  `x-datadog-origin`
+- `x-datadog-origin`
   - **의미**: 추적이 시작된 원점/소스를 나타냄
   - **용도**: 추적의 출발점이 어디인지 식별 (예: 'synthetics', 'rum', 'lambda' 등)
   - **예시**: `synthetics`, `rum`, `lambda`, `profiling`
--  `x-datadog-sampling-priority`
+- `x-datadog-sampling-priority`
   - **의미**: 해당 추적의 샘플링 우선순위
   - **용도**: 추적 데이터를 얼마나 중요하게 처리할지 결정
   - **값**:
@@ -76,7 +77,7 @@ Trace Context에는 여러 값들이 있습니다:
       - `0`: 자동 유지 (AUTO_REJECT)
       - `1`: 자동 유지 (AUTO_KEEP)
       - `2`: 사용자 유지 (USER_KEEP)
--  `x-datadog-tags`
+- `x-datadog-tags`
   - **의미**: 추적과 관련된 메타데이터 태그들
   - **용도**: 추적에 추가적인 컨텍스트 정보를 부여 (환경, 버전, 사용자 ID 등)
   - **형태**: 키-값 쌍들이 URL 인코딩된 형태 (예: `_dd.p.key1=value1,key2=value2`)
@@ -274,6 +275,7 @@ public class ExtractSentenceService {
 - `TraceContext.value()`는 저장된 trace 정보가 담긴 Map
 - `createSpanFromContext()`가 부모 context를 복원하면서 **trace-id를 유지**
 - `activateSpan()`으로 활성화해야 비즈니스 로직이 이 span에 포함됨
+
 ---
 
 ## 개선: AOP로 보일러플레이트 제거하기
@@ -462,7 +464,7 @@ private String getStackTrace(Throwable throwable) {
 
 ---
 
-# 결과: 분산 추적이 정상 작동하다
+# 결과
 
 ## 실제 결과
 
