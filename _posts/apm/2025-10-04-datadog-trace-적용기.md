@@ -98,7 +98,7 @@ Trace Context에는 여러 값들이 있습니다:
 
 ### 의존성 추가
 
-```Gradle
+```gradle
 api 'com.datadoghq:dd-trace-ot:1.46.0'
 api 'com.datadoghq:dd-trace-api:1.46.0'
 ```
