@@ -8,11 +8,11 @@ tags:
   - Kafka
   - Kafka-connect
 date: 2025-10-05
-excerpt: 레거시 시스템에서 신규 전처리 시스템으로 대용량 데이터를 마이그레이션한 경험을 공유합니다. Kafka Connect로 데이터 스트림을 구축하고, Spring Batch와 RxJava를 활용한 병렬 처리로 성능을 13배 향상시켰습니다.
+excerpt: 레거시 시스템에서 신규 전처리 시스템으로 대용량 데이터를 마이그레이션한 경험을 공유합니다.
 image_thumbnail: /assets/images/posts/spring-batch.png
 ---
 # 문제 관측
-
+---
 이전에 만든 표절검사 서비스를 리팩토링하면서 새로운 문서 전처리 시스템을 만들게 되었습니다.
 
 **기존 상황**:
@@ -32,7 +32,7 @@ image_thumbnail: /assets/images/posts/spring-batch.png
 이 글에서는 **수십만 건의 대용량 데이터를 어떻게 효율적으로 마이그레이션했는지**, 그 과정에서 겪은 고민과 선택을 공유하려고 합니다.
 
 # 마이그레이션 대상 특정하기
-
+---
 처음 생각했던 방법은 간단했습니다.
 
 "Spring Batch에서 카피킬러 DB를 직접 조회하면 되지 않을까?"
@@ -52,7 +52,7 @@ image_thumbnail: /assets/images/posts/spring-batch.png
 이렇게 하면 운영 시스템에 영향을 주지 않으면서도, 마이그레이션 과정을 추적할 수 있었습니다.
 
 # 데이터 파이프라인 구축하기: Kafka Connect와의 만남
-
+---
 이제 새로운 문제가 생겼습니다.
 
 "대상 데이터를 임시 DB에 저장하려면, 카피킬러 DB에서는 어떻게 가져올까?"
@@ -111,7 +111,7 @@ Kafka Connect는 이런 특징이 있습니다.
 - **Spring Batch**: 최종 마이그레이션용 (복잡한 로직 처리 가능)
 
 # Spring Batch 최적화
-
+---
 Kafka Connect를 통해 대상 데이터를 모았으니, 이제 실제 마이그레이션을 해야 했습니다.
 
 ## 첫 번째 구현: 표준적인 방식
@@ -344,6 +344,7 @@ public void executeParallelDbWrites(List<MigrationResult> migrationResults) {
 ```
 
 # Exception 처리
+---
 Writer에 API 요청과 함께 DB Write까지 집중되어있다보니 Exception 처리의 이슈가 발생합니다.
 에러에는 두 가지 종류가 발생합니다.
 
@@ -519,7 +520,7 @@ public Job migrationJob(
 ```
 
 # 결과 및 회고
-
+---
 ## 성능 개선 결과
 
 마이그레이션 완료 시간으로 성능을 검증했습니다.

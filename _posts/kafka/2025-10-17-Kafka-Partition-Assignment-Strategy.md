@@ -12,16 +12,14 @@ image_thumbnail: /assets/images/posts/kafka.png
 ---
 
 # 개요
-
+---
 Kafka의 Consumer는 Topic의 여러 Partition에서 메시지를 소비합니다.
 하나의 Consumer Group에 여러 Consumer가 있을 때, **어떤 Consumer가 어떤 Partition을 담당할지 결정하는 과정**을 **Partition Assignment(파티션 할당)**라고 합니다.
 
 이 할당 방식에 따라 **메시지 처리 순서, 부하 분산, 리밸런싱 성능**이 크게 달라집니다.
 
----
-
 # Partition Assigner란?
-
+---
 ## 정의
 **Kafka Partition Assignment Strategy** 는 Consumer Group의 Consumer들에게 Topic의 Partition을 분배하는 알고리즘을 구현한 전략입니다.
 
@@ -38,10 +36,9 @@ Kafka의 Consumer는 Topic의 여러 Partition에서 메시지를 소비합니�
 4. Rebalance 트리거 시
 ```
 
----
 
 # Partition Assigner의 종류
-
+---
 Kafka에서 제공하는 주요 Assigner는 4가지입니다:
 
 1. **RangeAssigner** (기본값)
@@ -62,10 +59,9 @@ partition.assignment.strategy=org.apache.kafka.clients.consumer.RangeAssigner
 partition.assignment.strategy=org.apache.kafka.clients.consumer.CooperativeStickyAssigner,org.apache.kafka.clients.consumer.RangeAssigner
 ```
 
----
 
 # 1. RangeAssigner (범위 기반 할당)
-
+---
 ## 개요
 **Topic별로** Partition을 연속된 범위로 나누어 Consumer에 순서대로 할당합니다.
 
@@ -76,10 +72,9 @@ partition.assignment.strategy=org.apache.kafka.clients.consumer.CooperativeStick
 - 토픽 별로 Partition 순서대로 Consumer에게 할당된다.
 - Partition 개수보다 Consumer 개수가 더 크면, Partition을 할당받지 못하는 Consumer가 발생할 수 있다.
 
----
 
 # 2. RoundRobinAssigner (라운드 로빈 할당)
-
+---
 ## 개요
 모든 Topic의 Partition을 **하나씩 순회하면서** Consumer에 할당합니다.
 
@@ -93,10 +88,10 @@ partition.assignment.strategy=org.apache.kafka.clients.consumer.CooperativeStick
 ![RoundRobinAssigner_불균형](/assets/images/posts/RoundRobinAssigner_불균형.png)
 Consumer 간 Subscribe 해오는 Topic이 다를 경우, **할당 불균형이 발생할 수 있다.**
 
----
+
 
 # 3. StickyAssigner (끈기 있는 할당)
-
+---
 ## 개요
 **부하 균형**과 **Rebalancing 최소화**를 동시에 달성하려는 Assigner입니다.
 
@@ -113,10 +108,8 @@ Consumer 간 Subscribe 해오는 Topic이 다를 경우, **할당 불균형이 �
 - Round Robin Assignor의 경우 할당 방식과 마찬가지로 순서대로 다시 할당된다. -> **전체를 다시 할당**
 - Sticky Assignor의 경우 제거 전 상태에서 할당이 끊긴 Partition들을 최대한 분산되게 할당한다. -> **기존 할당은 유지하면서, 나머지 부분을 할당**
 
----
-
 # 4. CooperativeStickyAssigner (협력적 끈기 있는 할당)
-
+---
 ## 개요
 **StickyAssigner의 개선 버전**입니다. Kafka 2.5.0부터 도입되었으며, **"Stop the World" 방식의 Rebalancing을 없애고 협력적 리밸런싱을 지원**합니다.
 

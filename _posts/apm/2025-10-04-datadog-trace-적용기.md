@@ -11,7 +11,7 @@ excerpt: 역할이 분리된 마이크로서비스에서 End to End 분산 추�
 image_thumbnail: /assets/images/posts/데이터독.jpg
 ---
 # 분산 추적 모니터링이 끊기는 문제
-
+---
 ## 서비스 아키텍처와 발생한 문제
 
 전처리 서비스의 아키텍처는 **역할 분리**로 설계되어 있습니다:
@@ -43,9 +43,8 @@ image_thumbnail: /assets/images/posts/데이터독.jpg
 
 Batch는 DB에서만 이벤트 정보를 읽을 뿐, "이 이벤트가 어느 API 요청에서 나온 것인가"를 알 수 없었습니다. 따라서 trace-id를 이어줄 수 없었습니다.
 
----
 # Trace Context를 DB에 저장하고 복원
-
+---
 ## Datadog Trace Context란?
 
 **Trace Context는 Datadog에서 분산 추적을 위해 정의한 메타데이터**입니다.
@@ -82,7 +81,6 @@ Trace Context에는 여러 값들이 있습니다:
   - **용도**: 추적에 추가적인 컨텍스트 정보를 부여 (환경, 버전, 사용자 ID 등)
   - **형태**: 키-값 쌍들이 URL 인코딩된 형태 (예: `_dd.p.key1=value1,key2=value2`)
 
----
 
 ## 구현 전략: "추출 → 저장 → 복원"
 
@@ -160,7 +158,6 @@ public static io.opentracing.Scope activateSpan(Span span) {
 
 Span을 활성화해야만 비즈니스 로직이 이 span에 포함됩니다. 활성화하지 않으면 로그, DB 쿼리 등이 이 span의 자식으로 기록되지 않습니다.
 
----
 
 ## 구현 2단계: Trace Context를 DB에 저장하기
 
@@ -276,7 +273,6 @@ public class ExtractSentenceService {
 - `createSpanFromContext()`가 부모 context를 복원하면서 **trace-id를 유지**
 - `activateSpan()`으로 활성화해야 비즈니스 로직이 이 span에 포함됨
 
----
 
 ## 개선: AOP로 보일러플레이트 제거하기
 
@@ -410,7 +406,6 @@ public void extract(PreprocessJob job) {
 
 **Trace 코드가 완전히 사라졌습니다!** 개발자는 **비즈니스 로직에만 집중**할 수 있습니다.
 
----
 
 ## 추가 개선: 예외 처리 및 에러 추적
 
@@ -462,10 +457,8 @@ private String getStackTrace(Throwable throwable) {
 - 스택트레이스 포함 ✓
 - 원본 예외는 정상적으로 전파 ✓
 
----
-
 # 결과
-
+---
 ## 실제 결과
 
 이제 API 요청을 하면:
@@ -486,10 +479,9 @@ Datadog UI에서 확인할 수 있습니다:
 ![[Datadog Trace 적용기-1.png]]
 ![[Datadog Trace 적용기-2.png]]
 
----
 
 # 회고: 이 구현을 통해 배운 점
-
+---
 ## 1. 아키텍처와 모니터링의 관계
 
 **아키텍처가 모니터링 전략을 결정합니다.**
