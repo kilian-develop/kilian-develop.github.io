@@ -12,11 +12,37 @@ module Jekyll
         "<mark>#{$1}</mark>"
       end
 
-      # Convert image wikilinks: ![[image.png]] -> ![image](/assets/images/posts/image.png)
-      content = content.gsub(/!\[\[([^\]]+\.(?:png|jpg|jpeg|gif|svg|webp))\]\]/i) do |match|
+      # Convert image wikilinks with optional size and alignment
+      # ![[image.png]] -> ![image](/assets/images/posts/image.png)
+      # ![[image.png|300]] -> ![image](/assets/images/posts/image.png){: width="300px"}
+      # ![[image.png|300|center]] -> ![image](/assets/images/posts/image.png){: width="300px" style="display: block; margin: 0 auto;"}
+      content = content.gsub(/!\[\[([^\]|]+\.(?:png|jpg|jpeg|gif|svg|webp))(?:\|(\d+))?(?:\|(center|left|right))?\]\]/i) do |match|
         image_name = $1
+        width = $2
+        alignment = $3
         alt_text = File.basename(image_name, '.*')
-        "![#{alt_text}](/assets/images/posts/#{image_name})"
+
+        attributes = ""
+        if width
+          attributes += "width=\"#{width}px\""
+        end
+
+        if alignment
+          if alignment.downcase == "center"
+            style = "display: block; margin: 0 auto;"
+          elsif alignment.downcase == "left"
+            style = "float: left; margin-right: 1em;"
+          elsif alignment.downcase == "right"
+            style = "float: right; margin-left: 1em;"
+          end
+          attributes += " style=\"#{style}\"" if style
+        end
+
+        if attributes.empty?
+          "![#{alt_text}](/assets/images/posts/#{image_name})"
+        else
+          "![#{alt_text}](/assets/images/posts/#{image_name}){: #{attributes}}"
+        end
       end
 
       # Convert regular wikilinks: [[link]] -> [link](link)

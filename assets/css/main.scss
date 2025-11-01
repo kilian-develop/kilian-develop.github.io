@@ -320,3 +320,9 @@ body.layout--tags .entry-image {
   object-fit: contain;
   margin-bottom: 0.5rem;
 }
+
+// Increase line height for better readability
+.e-content p {
+  line-height: 1.9;
+  word-break: break-word;
+}
