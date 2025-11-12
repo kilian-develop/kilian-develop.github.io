@@ -173,23 +173,59 @@ mark {
   border-radius: 2px;
 }
 
-// Improve home page entry separation
+// Improve home page entry separation - Grid Layout
 .entries-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+  gap: 2rem !important;
+  align-items: start !important;
+
   .entry {
-    padding-bottom: 2rem !important;
-    margin-bottom: 2.5rem !important;
-    border-bottom: 2px solid #ddd !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    padding: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
 
     &:last-child {
       border-bottom: none !important;
     }
+  }
+
+  .entry-header {
+    margin-bottom: 1rem !important;
+  }
+
+  .entry-image {
+    margin: -1.5rem -1.5rem 1rem -1.5rem !important;
+    border-radius: 8px 8px 0 0 !important;
+  }
+
+  .entry-excerpt {
+    flex-grow: 1 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .entry-meta {
+    margin-top: auto !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #eee !important;
+    font-size: 0.85rem !important;
   }
 }
 
 // Dark mode support for entry separator
 @media (prefers-color-scheme: dark) {
   .entries-list .entry {
-    border-bottom-color: #555 !important;
+    border-color: #444 !important;
+
+    .entry-meta {
+      border-top-color: #555 !important;
+    }
   }
 }
 
@@ -217,7 +253,7 @@ mark {
   position: fixed;
   top: 2rem;
   right: 2rem;
-  width: 200px;
+  width: 280px;
   max-height: calc((100vh - 4rem) / 2);
   overflow-y: auto;
   z-index: 100;
@@ -325,4 +361,13 @@ body.layout--tags .entry-image {
 .e-content p {
   line-height: 1.9;
   word-break: break-word;
+}
+
+// Increase page content width for better reading experience
+.layout--post .page-wrapper {
+  max-width: 1200px !important;
+
+  @media screen and (min-width: 1280px) {
+    grid-template-columns: 200px 1fr !important;
+  }
 }
