@@ -38,6 +38,11 @@ disqus:
 twitter:
   username: # site's Twitter username, e.g. "mmistakes"
 
+# Site owner for verification
+owner:
+  google:
+    verify: uUtYel_tq2grNQRI8xPbL2NIo1KR8nZvWjaNjc2bp2w
+
 # Liquid
 liquid:
   error_mode: strict
