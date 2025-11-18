@@ -1,0 +1,9 @@
+---
+# Front matter to make this a proper Jekyll file
+---
+
+/* Custom overrides for post content width */
+
+.layout--post .page-wrapper {
+  max-width: 1020px !important;
+}
