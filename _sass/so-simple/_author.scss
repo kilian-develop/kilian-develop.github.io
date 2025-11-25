@@ -11,14 +11,16 @@
   @include breakpoint($large) {
     margin-right: 0;
     margin-bottom: 1em;
-    width: 100px;
+    width: 130px;
     height: auto;
   }
 }
 
 .author-name {
   @include breakpoint($large) {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.75em;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 }
 

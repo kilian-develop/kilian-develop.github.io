@@ -10,8 +10,8 @@
           {% assign title_part = parts[1] | split: '</h' | first %}
           {% assign id = title_part | strip_html | slugify %}
           {% assign text = title_part | strip_html %}
-          <li class="toc-item toc-level-{{ level }}">
-            <a href="#{{ id }}">{{ text }}</a>
+          <li class="toc-item toc-level-{{ level }}" data-level="{{ level }}">
+            <a href="#{{ id }}" class="toc-link">{{ text }}</a>
           </li>
         {% endif %}
       {% endfor %}

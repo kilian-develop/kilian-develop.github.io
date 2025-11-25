@@ -60,3 +60,8 @@ MathJax = {
 {%- if page.layout == "search" -%}
   {% include lunr-search-scripts.html %}
 {%- endif -%}
+
+{%- if page.layout == "post" -%}
+  <script src="{{ '/assets/js/plugins/toc-scroll-sync.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/plugins/sidebar-parallax.js' | relative_url }}"></script>
+{%- endif -%}

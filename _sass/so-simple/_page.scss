@@ -66,6 +66,11 @@
 
   @include breakpoint($large) {
     text-align: center;
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+    will-change: transform;
+    font-size: 0.85rem;
   }
 
   .page-date,
