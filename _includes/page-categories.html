@@ -1,8 +1,10 @@
-{% if page.categories.size > 0 %}
+{% if page.categories %}
   <h3 class="page-taxonomies-title">{{ site.data.text[site.locale].categories | default: 'Categories' }}</h3>
-  {% assign categories = page.categories | sort %}
+  {% assign cat_string = page.categories | join: " " %}
+  {% assign categories = cat_string | split: " " | sort %}
   <ul class="page-taxonomies">
     {%- for category in categories -%}
+      {% if category != "" %}
       <li class="page-taxonomy">
         {%- if site.category_archive_path -%}
           <a class="p-category" href="{{ category | slugify | prepend: site.category_archive_path | relative_url }}" title="{{ site.data.text[site.locale].pages_categorized | default: 'Pages filed under' }} {{ category }}">{{ category }}</a>
@@ -10,6 +12,7 @@
           {{ category }}
         {%- endif -%}
       </li>
+      {% endif %}
     {%- endfor- %}
   </ul>
 {% endif %}
